@@ -9,6 +9,22 @@ class StoresController < ApplicationController
     render json: @stores
   end
 
+  def fetch_stores
+    puts params[:zip]
+
+    # HTTParty gem used for handeling json data 
+    # Zipwise api is used for fetching nearby Zipcodes to the zipcode entered by user
+
+    @stores = HTTParty.get("https://www.zipwise.com/webservices/radius.php?key=0i4goiq5n5ij1cxl&zip='#{params[:zip]}'&radius=10&format=json")
+     @arr = []
+     @stores['results'].each do |i|
+      @arr << i['zip']
+     end
+     puts @arr
+      @stores = Store.where(:zipcode => @arr)
+    render json: @stores
+  end
+
   # GET /stores/1
   # GET /stores/1.json
   def show
