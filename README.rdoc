@@ -1,28 +1,28 @@
-== README
+## **RESTful_store_api** ##
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+User of this api can create/update/delete stores using curl commands mentioned below. also user can find  stores near to the USA zip code. here for fetching zipcodes 'x' miles from a USA zipcode I have used [http://www.zipwise.com/data/](http://www.zipwise.com/data/)
 
-Things you may want to cover:
+To see output use below commands:
 
-* Ruby version
+**Create store:** curl -d "store[store_name]=STORE_NAME" -d "store[country]=COUNTRY" -d "store[state]=STATE" -d "store[city]=CITY" -d "store[zipcode]=ZIPCODE" localhost:3000/stores
 
-* System dependencies
+**Update store:** curl -d "store[store_name]=UPDATED_STORE_NAME" -d "store[country]=UPDATED_COUNTRY" -d "store[state]=UPDATED_STATE" -d "store[city]=UPDATED_CITY" -d "store[zipcode]=UPDATED_ZIPCODE" localhost:3000/stores/:Id
 
-* Configuration
+**Delete store:** curl -X DELETE http://localhost:3000/stores/:Id
 
-* Database creation
+**To fetch stores at 'x' miles from given USA zip code use following commane (Note: distance should not be greater than 50 miles ):**
 
-* Database initialization
+curl -X GET -d 'zip=06602' -d 'distance=10' localhost:3000/fetch_stores
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+zip= USA zip code
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+distance= distance in miles upto 50 miles
+
+**Gems used**
+
+
+ 1. [rails-api](https://github.com/rails-api/rails-api)
+ 2. [active_model_serializers](https://github.com/rails-api/active_model_serializers)
+ 3. [Httparty](https://github.com/jnunemaker/httparty)
+ 
